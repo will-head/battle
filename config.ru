@@ -1,3 +1,3 @@
 # config.ru (run with rackup)
-require './battle.rb'
+require './app.rb'
 run Battle
