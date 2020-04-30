@@ -2,6 +2,7 @@ require 'sinatra/base'
 
 
 class Battle < Sinatra::Base
+  set :session_secret, "fix shotgun session error"
   enable :sessions
 
   get '/' do
