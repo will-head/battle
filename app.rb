@@ -3,8 +3,9 @@ require_relative 'lib/player'
 $players = Array.new
 
 class Battle < Sinatra::Base
-  set :session_secret, "fix shotgun session error"
+#   set :session_secret, "fix shotgun session error"
   enable :sessions
+  set :session_secret, ENV.fetch('SESSION_SECRET') { SecureRandom.hex(64) }
 
   get '/' do
     erb :index
