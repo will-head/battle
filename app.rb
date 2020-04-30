@@ -1,5 +1,6 @@
 require 'sinatra/base'
-
+require_relative 'lib/player'
+$players = Array.new
 
 class Battle < Sinatra::Base
   set :session_secret, "fix shotgun session error"
@@ -10,21 +11,20 @@ class Battle < Sinatra::Base
   end
 
   post '/names' do
-    session[:player_1_name] = params[:player_1_name]
-    session[:player_2_name] = params[:player_2_name]
- 
+    $players.push(Player.new(params[:player_1_name]))
+    $players.push(Player.new(params[:player_2_name]))
     redirect to('/play')
   end 
   
   get '/play' do 
-    @player_1_name = session[:player_1_name]
-    @player_2_name = session[:player_2_name]
+    @player_1_name = $players[0].name
+    @player_2_name = $players[1].name
     erb :play
   end 
 
   get '/attack' do
-    @player_1_name = session[:player_1_name]
-    @player_2_name = session[:player_2_name]
+    @player_1_name = $players[0].name
+    @player_2_name = $players[1].name
     erb :attack
   end
  
